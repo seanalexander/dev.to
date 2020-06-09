@@ -28,3 +28,18 @@ Release / Updates
 * Perform any Data Updates (Migrations) outside of the application logic
 * Create compatible or versioned migrations.
 * On Startup, verify the the schema version is compatible
+
+### Applying Migrations in Production
+
+#### EF Core
+
+https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/migrations?view=aspnetcore-2.1&tabs=visual-studio#applying-migrations-in-production
+
+Microsoft recommends the following best practices:
+
+* Production apps do not call "Database.Migrate" at application startup.
+* Migrate should not be called from an app in a server farm configuration (more than 1 instance running)
+* Data Migrations should be completed as part of a Deployment
+* If a Data Migration fails, the rest of the pipeline should not proceed
+* Use tools such as: ```dotnet ef database update```
+* Automatically create Migration Artifacts SQL Scripts per release
